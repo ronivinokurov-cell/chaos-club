@@ -1,8 +1,8 @@
 const fs = require('fs');
-const css = fs.readFileSync('styles.css', 'utf8');
+const css = fs.readFileSync('src/styles.css', 'utf8');
 const files = ['core.js','games-common.js','games-brain.js','games-party.js','games-music.js','games-create.js','games-speed.js','games-words.js','games-numbers.js','games-geo.js','games-science.js','games-sport.js','games-food.js','games-cook2.js','games-cook2-recipes.js','games-board.js','games-table.js','games-history.js','games-screen.js','games-logic.js','games-luck.js','games-extra.js'];
-const js = files.map(f => `/* ===== ${f} ===== */\n` + fs.readFileSync(f, 'utf8')).join('\n\n');
-const catCount = (fs.readFileSync('core.js','utf8').match(/const CATS = \[([\s\S]*?)\n\];/)[1].match(/\{ id: '/g) || []).length;
+const js = files.map(f => `/* ===== ${f} ===== */\n` + fs.readFileSync('src/' + f, 'utf8')).join('\n\n');
+const catCount = (fs.readFileSync('src/core.js','utf8').match(/const CATS = \[([\s\S]*?)\n\];/)[1].match(/\{ id: '/g) || []).length;
 const gameCount = (js.match(/registerGame\(\{|quizGame\(\{|registerGame\(Object\.assign/g) || []).length;
 const html = `<!DOCTYPE html>
 <html lang="he" dir="rtl" data-theme="dark">
@@ -38,6 +38,6 @@ ${js}
 </body>
 </html>
 `;
-fs.writeFileSync('../chaos-club.html', html);
+fs.writeFileSync('index.html', html);
 console.log('counts', gameCount, catCount);
 console.log('built', (html.length/1024).toFixed(1)+'KB');
